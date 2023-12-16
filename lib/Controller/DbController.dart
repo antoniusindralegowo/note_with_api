@@ -18,7 +18,6 @@ class DbController extends GetxController {
   }
 
   Future<void> getNotes() async {
-
     var response = await http.get(
       Uri.parse(url),
     );
@@ -38,23 +37,43 @@ class DbController extends GetxController {
       time: "",
     );
 
-    if(title.text != "" || des.text !="")
-    {
-      var response = await http.post(
-      Uri.parse(url),
-      body: jsonEncode(newNote.toJson()),
-     headers: {'content-type':'application/json'}
-    );
-    if(response.statusCode ==201)
-    {
-      title.clear();
-      des.clear();
-      print("❤️ Note Added");
-      getNotes();
-    }
-    }
-    else{
+    if (title.text != "" || des.text != "") {
+      var response = await http.post(Uri.parse(url),
+          body: jsonEncode(newNote.toJson()),
+          headers: {'content-type': 'application/json'});
+      if (response.statusCode == 201) {
+        title.clear();
+        des.clear();
+        print("❤️ Note Added");
+        getNotes();
+      }
+    } else {
       print("❌ Please enter something");
+    }
+  }
+
+  Future<void> deleteNote(String id) async {
+    var newUrl = "https://657d4932853beeefdb9a7f7f.mockapi.io/note/$id";
+    final response = await http.delete(Uri.parse(newUrl));
+    if (response.statusCode == 200) {
+      print("❌ Note Delete");
+      getNotes();
+      Get.back();
+    }
+  }
+
+  Future<void> updateNote(String id) async {
+    var newUrl = "https://657d4932853beeefdb9a7f7f.mockapi.io/note/$id";
+    var updatedNote = NoteModel(
+      title: titleDetails.text,
+      description: desDetails.text,
+    );
+    var response = await http.put(Uri.parse(newUrl),
+        body: jsonEncode(updatedNote.toJson()),
+        headers: {'content-type': 'application/json'});
+    if (response.statusCode == 200) {
+      print("❤️ Note Updated");
+      getNotes();
     }
   }
 }

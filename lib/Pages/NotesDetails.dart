@@ -23,6 +23,18 @@ class NotesDetails extends StatelessWidget {
           ),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: () {
+              print(note.id);
+              dbController.deleteNote(note.id!);
+            },
+            icon: Icon(
+              Icons.delete,
+              color: Colors.white,
+            ),
+          ),
+        ],
       ),
       backgroundColor: Colors.deepPurple.shade100,
       body: Padding(
@@ -51,8 +63,10 @@ class NotesDetails extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
-            child: Text("S A V E"),
+            onPressed: () {
+              dbController.updateNote(note.id!);
+            },
+            child: Text("UPDATE NOTE"),
           )
         ]),
       ),
