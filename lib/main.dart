@@ -11,16 +11,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-        title: 'Note with API',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(
-            seedColor: Colors.deepPurple,
-          ),
-          useMaterial3: true,
+      title: 'Note with API',
+      theme: ThemeData(
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: Colors.deepPurple,
         ),
-        home: HomePage());
+        useMaterial3: true,
+      ),
+      home: HomePage(),
+    );
   }
 }

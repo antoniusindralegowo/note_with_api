@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:note_with_api/Controller/DbController.dart';
 
 class NewNotePage extends StatelessWidget {
   const NewNotePage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    DbController dbController = Get.put(DbController());
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
@@ -22,6 +25,7 @@ class NewNotePage extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(children: [
           TextFormField(
+            controller: dbController.title,
             decoration: InputDecoration(
               hintText: "Title",
               border: InputBorder.none,
@@ -32,6 +36,7 @@ class NewNotePage extends StatelessWidget {
             ),
           ),
           TextFormField(
+            controller: dbController.des,
             maxLines: 20,
             decoration: InputDecoration(
               hintText: "Description",
@@ -42,7 +47,9 @@ class NewNotePage extends StatelessWidget {
             ),
           ),
           ElevatedButton(
-            onPressed: () {},
+            onPressed: () {
+              dbController.addNote();
+            },
             child: Text("S A V E"),
           )
         ]),

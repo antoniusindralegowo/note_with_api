@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:note_with_api/Controller/DbController.dart';
+import 'package:note_with_api/Models/NoteModel.dart';
 
 class NotesDetails extends StatelessWidget {
-  const NotesDetails({super.key});
+  final NoteModel note;
+  const NotesDetails({super.key, required this.note});
 
   @override
   Widget build(BuildContext context) {
+    DbController dbController = Get.put(DbController());
+    dbController.titleDetails.text = note.title.toString();
+    dbController.desDetails.text = note.description.toString();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.deepPurple,
@@ -22,6 +29,7 @@ class NotesDetails extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(children: [
           TextFormField(
+            controller: dbController.titleDetails,
             decoration: InputDecoration(
               hintText: "Title",
               border: InputBorder.none,
@@ -32,6 +40,7 @@ class NotesDetails extends StatelessWidget {
             ),
           ),
           TextFormField(
+            controller: dbController.desDetails,
             maxLines: 20,
             decoration: InputDecoration(
               hintText: "Description",

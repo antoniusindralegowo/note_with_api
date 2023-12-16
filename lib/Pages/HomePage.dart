@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:note_with_api/Controller/DbController.dart';
 import 'package:note_with_api/Pages/NewNotePage.dart';
 import 'package:note_with_api/Pages/NotesWidgets.dart';
 
@@ -8,6 +9,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    DbController dbController = Get.put(DbController());
     return Scaffold(
       backgroundColor: Colors.deepPurple.shade100,
       appBar: AppBar(
@@ -23,7 +25,7 @@ class HomePage extends StatelessWidget {
         actions: [
           IconButton(
             onPressed: () {
-             
+              dbController.getNotes();
             },
             icon: const Icon(
               Icons.search,
@@ -44,18 +46,18 @@ class HomePage extends StatelessWidget {
       ),
       body: Padding(
           padding: const EdgeInsets.all(8.0),
-          child: GridView.count(
+          child: Obx(() => GridView.count(
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            children: [
-              NoteWidgets(),
-              NoteWidgets(),
-              NoteWidgets(),
-              NoteWidgets(),
-              NoteWidgets(),
-            ],
-          )),
+            children: dbController.notesList
+                .map(
+                  (e) => NoteWidgets(
+                    note: e,
+                  ),
+                )
+                .toList(),
+          ),),),
     );
   }
 }
