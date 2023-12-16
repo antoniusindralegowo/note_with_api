@@ -3,15 +3,11 @@ import 'package:get/get.dart';
 import 'package:note_with_api/Pages/NewNotePage.dart';
 import 'package:note_with_api/Pages/NotesWidgets.dart';
 
-import '../Controller/NotificationController.dart';
-
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    NotificationController notificationController =
-        Get.put(NotificationController());
     return Scaffold(
       backgroundColor: Colors.deepPurple.shade100,
       appBar: AppBar(
